@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+  database-buy:
+    image: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwft67h9
+      POSTGRES_DB: mikroservice-buy
+
+
+  mikroservice-buy: 
+    build: 
+      dockerfile: mikroservice-buy/docker/Dockerfile
+    ports:
+      - '8090:8090'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwft67h9
+      POSTGRES_URL: jdbc:postgresql://database-buy:5432/postgres
+    depends_on:
+      - database-buy
+
+  database-auth:
+    image: postgres
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwft67h9
+      POSTGRES_DB: mikroservice-auth
+
+  mikroservice-auth:
+    build:
+      dockerfile: mikroservice-auth/docker/Dockerfile
+
+    container_name: auth
+    ports:
+      - '8085:8085'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwft67h9
+      POSTGRES_URL: jdbc:postgresql://database-auth:5432/postgres
+    depends_on:
+      - database-auth
