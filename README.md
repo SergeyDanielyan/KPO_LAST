@@ -11,4 +11,4 @@ http://localhost:8090/swagger-ui/index.html# (2 микросервис)
 INSERT INTO station (station_name) VALUES ('Vykhino'), ('Tekstilshiki'), ('Kitay-gorod'), ('Perovo'), 
 ('Novogireevo'), ('Pervomayskaya'), ('Kuzminki'), ('Novokosino'), ('Taganskaya'), ('Arbatskaya')
 
-Использовалось Spring Security.
+Использовалось Spring Security, PostgreSQL, Docker, JPA
